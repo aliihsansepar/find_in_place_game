@@ -93,7 +93,7 @@ export default {
 <style>
 .input-group {
   display: flex;
-  justify-items: space-evenly;
+  justify-content: center;
   height: 50vh;
   align-items: center;
 }
