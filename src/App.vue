@@ -47,6 +47,8 @@ export default {
       this.result = `${found.length} Found, ${inPlace.length} In Place`;
       if (found.length == 4 && inPlace.length == 4) {
         this.result = "Congratulations! You found the number!";
+        confetti.start();
+        setTimeout(() => confetti.stop(), 5000);
       }
       this.focusNextInput(event);
     },
