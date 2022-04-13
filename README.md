@@ -1,6 +1,6 @@
 # Found In-Place Game
 ```
-This is a number prediction game. The game will guide you in each guess. 
+This is a number prediction game. The game will guide you in each guess. Improvements continue
 ```
 
 
