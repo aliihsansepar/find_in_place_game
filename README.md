@@ -1,13 +1,13 @@
 # Found In-Place Game
-```
-This is a number prediction game. The game will guide you in each guess. Improvements continue
-```
-
+> **This is a number prediction game. The game will guide you in each guess. Improvements continue**
+---
+## Demo: [Found In-Place Game](https://find-in-place-game.vercel.app/)
+---
 
 ### This template should help get you started developing with Vue 3 in Vite.
+<br>
 
 ## Recommended IDE Setup
-
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
 
 ## Customize configuration
