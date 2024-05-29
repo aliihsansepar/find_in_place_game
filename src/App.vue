@@ -7,74 +7,60 @@ export default {
   data() {
     return {
       result: "0 Found, 0 In Place",
-      input_1: 0,
-      input_2: 0,
-      input_3: 0,
-      input_4: 0,
-      randomNumber: Math.floor(Math.random() * (9999 - 1000 + 1) + 1000),
+      inputs: ["", "", "", ""],
+      randomNumber: this.generateRandomNumber(),
     };
   },
   methods: {
+    generateRandomNumber() {
+      return Math.floor(Math.random() * (9999 - 1000 + 1) + 1000);
+    },
     checkResult(event) {
-      console.log(this.randomNumber);
-      let found = [],
-        inPlace = [];
-      let realNumberArray = this.randomNumber.toString().split("");
-      if (realNumberArray[0] == this.input_1.data) {
-        inPlace.push(this.input_1.data);
-      }
-      if (realNumberArray[1] == this.input_2.data) {
-        inPlace.push(this.input_1.data);
-      }
-      if (realNumberArray[2] == this.input_3.data) {
-        inPlace.push(this.input_1.data);
-      }
-      if (realNumberArray[3] == this.input_4.data) {
-        inPlace.push(this.input_1.data);
-      }
-      if (realNumberArray.includes(this.input_1.data)) {
-        found.push(this.input_1.data);
-      }
-      if (realNumberArray.includes(this.input_2.data)) {
-        found.push(this.input_2.data);
-      }
-      if (realNumberArray.includes(this.input_3.data)) {
-        found.push(this.input_3.data);
-      }
-      if (realNumberArray.includes(this.input_4.data)) {
-        found.push(this.input_4.data);
-      }
-      this.result = `${found.length} Found, ${inPlace.length} In Place`;
-      if (found.length == 4 && inPlace.length == 4) {
+      const realNumberArray = this.randomNumber.toString().split("");
+      let found = 0,
+        inPlace = 0;
+
+      this.inputs.forEach((input, index) => {
+        if (input === realNumberArray[index]) {
+          inPlace++;
+        }
+        if (realNumberArray.includes(input)) {
+          found++;
+        }
+      });
+
+      this.result = `${found} Found, ${inPlace} In Place`;
+
+      if (found === 4 && inPlace === 4) {
         this.result = "Congratulations! You found the number!";
         confetti.start();
         setTimeout(() => confetti.stop(), 5000);
       }
+
       this.focusNextInput(event);
     },
     focusNextInput(event) {
-      var target = event.srcElement || event.target;
-      var maxLength = 1;
-      var myLength = target.value.length;
+      const target = event.target;
+      const maxLength = 1;
+      const myLength = target.value.length;
+
       if (myLength >= maxLength) {
-        var next = target;
-        while ((next = next.nextElementSibling)) {
-          if (next == null) break;
+        let next = target.nextElementSibling;
+        while (next) {
           if (next.tagName.toLowerCase() === "input") {
             next.focus();
             break;
           }
+          next = next.nextElementSibling;
         }
-      }
-      // Move to previous field if empty (user pressed backspace)
-      else if (myLength === 0) {
-        var previous = target;
-        while ((previous = previous.previousElementSibling)) {
-          if (previous == null) break;
+      } else if (myLength === 0) {
+        let previous = target.previousElementSibling;
+        while (previous) {
           if (previous.tagName.toLowerCase() === "input") {
             previous.focus();
             break;
           }
+          previous = previous.previousElementSibling;
         }
       }
     },
@@ -84,10 +70,7 @@ export default {
 
 <template>
   <div class="input-group">
-    <Number v-bind="input_1" @input="input_1 = $event" @keyup="checkResult" />
-    <Number v-bind="input_2" @input="input_2 = $event" @keyup="checkResult" />
-    <Number v-bind="input_3" @input="input_3 = $event" @keyup="checkResult" />
-    <Number v-bind="input_4" @input="input_4 = $event" @keyup="checkResult" />
+    <Number v-for="(input, index) in inputs" :key="index" v-model="inputs[index]" @keyup="checkResult" />
   </div>
   <p id="result">{{ result }}</p>
 </template>

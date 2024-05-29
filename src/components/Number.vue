@@ -1,23 +1,31 @@
 <template>
-  <input type="text" maxlength="1" @input="checkInputMaxLengthAndIsANumber" />
+  <input type="text" maxlength="1" v-model="inputValue" @input="checkInputMaxLengthAndIsANumber" />
 </template>
+
 <script>
 export default {
   name: "Number",
-  data() {
-    return {};
-  },
   props: ["value"],
-  methods: {
-    // check input length is 1 and number
-    checkInputMaxLengthAndIsANumber(event) {
-      const value = event.currentTarget.value;
-      event.currentTarget.value = value.replace(/[^0-9]/g, "");
-      if (value.length > 1) {
-        event.currentTarget.value = value.slice(0, 1);
-        return false;
+  data() {
+    return {
+      inputValue: this.value,
+    };
+  },
+  watch: {
+    inputValue(newValue) {
+      this.$emit("input", newValue);
+    },
+    value(newValue) {
+      if (newValue !== this.inputValue) {
+        this.inputValue = newValue;
       }
-      this.$emit("input", value);
+    },
+  },
+  methods: {
+    checkInputMaxLengthAndIsANumber(event) {
+      let value = event.currentTarget.value;
+      value = value.replace(/[^0-9]/g, "").slice(0, 1);
+      this.inputValue = value;
     },
   },
 };
