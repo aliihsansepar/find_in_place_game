@@ -1,10 +1,15 @@
 <template>
-  <input type="text" maxlength="1" v-model="inputValue" @input="checkInputMaxLengthAndIsANumber" />
+  <input
+    type="text"
+    maxlength="1"
+    v-model="inputValue"
+    @input="checkInputMaxLengthAndIsANumber"
+  />
 </template>
 
 <script>
 export default {
-  name: "Number",
+  name: "NumberComponent",
   props: ["value"],
   data() {
     return {
@@ -24,7 +29,7 @@ export default {
   methods: {
     checkInputMaxLengthAndIsANumber(event) {
       let value = event.currentTarget.value;
-      value = value.replace(/[^0-9]/g, "").slice(0, 1);
+      value = value.replace(/\D/g, "").slice(0, 1);
       this.inputValue = value;
     },
   },
@@ -35,8 +40,8 @@ export default {
 input {
   background: none;
   text-align: center;
-  margin: 2em;
-  font-size: 28px;
+  margin: 1.5em;
+  font-size: 75px; /* Font boyutunu artırdık */
   padding: 10px;
   display: block;
   width: 100px;
